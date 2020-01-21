@@ -1,0 +1,156 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %}Checkout {% endblock %}
+{% block css %}
+	<style>
+          .checkout-prod-img{
+          	height:100px;
+          	width:100px;
+          }
+          .item-qty{
+          	width: 30px;
+          	text-align: center;
+          }
+          .modify-checkout-item-qty{
+          	padding: 1px 6px;
+          }
+  </style>
+{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+	<table id="cart" class="table table-hover table-condensed">
+    				<thead>
+						<tr>
+							<th style="width:54%">Product</th>
+							<th style="width:7%">Price</th>
+							<th style="width:12%">Quantity</th>
+							<th style="width:12%" class="text-center">Subtotal</th>
+							<th style="width:15%"></th>
+						</tr>
+					</thead>
+					<tbody id="checkout-items">
+<!--						<tr>-->
+<!--							<td data-th="Product">-->
+<!--								<div class="row">-->
+<!--									<div class="col-sm-3 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>-->
+<!--									<div class="col-sm-9">-->
+<!--										<h4 class="nomargin">Product 1</h4>-->
+<!--										<p>Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Lorem ipsum dolor sit amet.</p>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</td>-->
+<!--							<td data-th="Price">$150.00</td>-->
+<!--							<td data-th="Quantity">-->
+<!--								<input type="number" class="form-control text-center" value="1">-->
+<!--							</td>-->
+<!--							<td data-th="Subtotal" class="text-center">150.00</td>-->
+<!--							<td class="actions" data-th="">-->
+<!--								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>-->
+<!--								<button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>-->
+<!--							</td>-->
+<!--						</tr>-->
+					</tbody>
+					<tfoot>
+						<tr>
+							<td><a href="/shop" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+							<td colspan="2" class="hidden-xs"></td>
+							<td class="hidden-xs text-right"><strong class="total-checkout">Total $0.00</strong></td>
+							<td><a href="javascript:void(0);" class="btn btn-success btn-block" id="checkout-modal-open" data-toggle="modal" data-target="#checkoutModal">Checkout <i class="fa fa-angle-right"></i></a></td>
+						</tr>
+					</tfoot>
+				</table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="checkoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Shipping detail</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+			<form action="" method="post" class="needs-validation" novalidate>
+				{% csrf_token %}
+				<input type="hidden" id="total-checkout-items" name="items" value="">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12 order-md-1">
+<!--							<h4 class="mb-3">Billing address</h4>-->
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="firstName">First name*</label>
+									<input name="fname" type="text" class="form-control" id="firstName" placeholder="" value="" required>
+									<div class="invalid-feedback">
+										Valid first name is required.
+									</div>
+								</div>
+								<div class="col-md-6 mb-3">
+									<label for="lastName">Last name*</label>
+									<input name="lname" type="text" class="form-control" id="lastName" placeholder="" value="" required>
+									<div class="invalid-feedback">
+										Valid last name is required.
+									</div>
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<label for="email">Email <span class="text-muted">(Optional)</span></label>
+								<input name="email" type="email" class="form-control" id="email" placeholder="you@example.com">
+								<div class="invalid-feedback">
+									Please enter a valid email address for shipping updates.
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<label for="mobile">Mobile*</label>
+								<input name="phone" type="tel" class="form-control" id="mobile" pattern="[0-9]{10}" placeholder="991000000" required>
+								<div class="invalid-feedback">
+									Please enter a Mobile number for shipping updates.
+								</div>
+							</div>
+
+							<div class="mb-3">
+								<label for="address">Address*</label>
+								<textarea name="address" class="form-control" id="address" placeholder="1234 Main St" required></textarea>
+								<div class="invalid-feedback">
+									Please enter your shipping address.
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6 mb-3">
+									<label for="state">State*</label>
+									<select name="state" class="custom-select d-block w-100" id="state" required>
+										<option value="">Choose...</option>
+										<option>California</option>
+									</select>
+									<div class="invalid-feedback">
+										Please provide a valid state.
+									</div>
+								</div>
+								<div class="col-md-6 mb-3">
+									<label for="zip">Zip*</label>
+									<input name="zip" type="text" class="form-control" id="zip" placeholder="" required>
+									<div class="invalid-feedback">
+										Zip code required.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+      </div>
+			</form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

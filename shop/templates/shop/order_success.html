@@ -1,0 +1,16 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %} Order successful {% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block body %}
+
+<h1>Your order has been success...</h1>
+copy order ID to <a href="/shop/tracker">track your order</a>.
+<input type="text" value="{{ orderId }}">
+
+
+{% endblock %}
