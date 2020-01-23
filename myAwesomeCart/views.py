@@ -1,9 +1,17 @@
 import hmac
 from hashlib import sha1
+<<<<<<< HEAD
 import git
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseServerError
 from django.views.decorators.csrf import csrf_exempt
+=======
+
+from django.conf import settings
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseServerError
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+>>>>>>> 1eabaa25b72655f9e87f95e49be2f561d7fca7a0
 from django.views.decorators.http import require_POST
 from django.utils.encoding import force_bytes
 
