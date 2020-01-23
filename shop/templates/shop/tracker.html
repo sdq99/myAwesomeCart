@@ -1,0 +1,37 @@
+{% extends 'shop/basic.html' %}
+
+{% block title %} Tracker {% endblock %}
+{% block body %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 order-md-1">
+			<h4 class="mb-3">Track Your Order</h4>
+			<form action="" method="post" novalidate>
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-md-5 mb-3">
+						<label for="order-id">Order ID:</label>
+						<input name="order_id" type="text" class="form-control" id="order-id" placeholder="Enter your order ID" value=""
+									 required>
+						<div class="invalid-feedback">
+							Order ID is required.
+						</div>
+					</div>
+					<div class="col-md-5 mb-3">
+						<label for="track-email">Email:</label>
+						<input name="email" type="text" class="form-control" id="track-email" placeholder="Enter your order email" value="" required>
+						<div class="invalid-feedback">
+							Valid Email is required.
+						</div>
+					</div>
+					<div class="col-md-2 mt-4">
+						<button class="btn btn-primary btn-block" id="track-order" type="submit">Track</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

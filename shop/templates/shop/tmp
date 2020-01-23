@@ -1,0 +1,16 @@
+<div class="card-body">
+  <h5 class="card-title">Kid's Clothing</h5>
+  <p class="card-text">Benetton, US Polo,Gini &amp; Jony...</p>
+  <div class="row">
+	<div class="col-md-6">
+        <button id="minuspr5">-</button>
+        <span>1</span>
+        <button id="minuspr5">+</button>
+    </div>
+    <div class="col-md-6">
+      <a href="/shop/products/5">
+        <button id="qv5" class="btn btn-primary btn-xs cart quick-view">Quick View</button>
+      </a>
+    </div>
+  </div>
+</div>
