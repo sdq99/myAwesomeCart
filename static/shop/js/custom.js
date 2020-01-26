@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    // alert(' ');
+    alert(' ');
     let pageName = $('.page-name').attr('page-value');
 
     //  for adding to cart
@@ -186,7 +186,8 @@ $(document).ready(function(){
 
     //for closing popover onclick outside...
     $('html').on('click', function(e) {
-        if (!(typeof $(e.target).data('original-title') != 'undefined' || typeof $(e.target).parents('#popcart').data('original-title') != 'undefined')) {
+//        if (!(typeof $(e.target).data('original-title') != 'undefined' || typeof $(e.target).parents('#popcart').data('original-title') != 'undefined')) {
+        if (!(typeof $(e.target).data('original-title') != 'undefined' || typeof $(e.target).parents('#popcart').data('original-title') != 'undefined')  && !$(e.target).parents().is('.popover.show')) {
             $('[data-original-title]').popover('hide');
         }
     });
