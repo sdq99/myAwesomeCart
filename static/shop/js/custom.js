@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    alert(' ');
     let pageName = $('.page-name').attr('page-value');
 
     //  for adding to cart
