@@ -1,0 +1,108 @@
+{% extends 'payment/basic.html' %}
+
+{% block title %} search {% endblock %}
+{% block css %}
+<style media="screen" type="text/css">
+.paypalbutton{
+  border-radius: 25px;
+  /*min-width: 300px;*/
+  box-shadow: 1px 1px 2px 1px #000;
+
+
+}
+.paypalbutton img{
+  height: 33px;
+}
+
+
+</style>
+{% endblock %}
+{% block body %}
+    <div class="container my-5">
+        <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-muted">Your cart</span>
+            <span class="badge badge-secondary badge-pill">{{ order.items|length }}</span>
+          </h4>
+          <ul class="list-group mb-3">
+            {% for item in order.items.values %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div class="mr-2">
+                <h6 class="my-0">{{ item.name }}</h6>
+                <small class="text-muted">{{ item.desc}}</small>
+              </div>
+              <span class="text-muted text-nowrap">$ {{ item.price }}</span>
+            </li>
+            {% endfor %}
+            <li class="list-group-item d-flex justify-content-between">
+              <h5>Total (USD)</h5>
+              <strong>${{ order.total_price }}</strong>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-8 order-md-1">
+          <h3 class="mb-3">Billing Detail
+            <small class="pull-right font-weight-light"><strong>Order No:</strong> {{ order.orderId }}</small>
+          </h3>
+          <hr>
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Name: </h5>
+              </div>
+              <div class="col-md-3">
+                <span> {{ order.name }} </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Email: </h5>
+              </div>
+              <div class="col-md-3">
+                <span> {{ order.email }} </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Phone: </h5>
+              </div>
+              <div class="col-md-3">
+                <span> {{ order.phone }} </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Address: </h5>
+              </div>
+              <div class="col-md-3">
+                <span> {{ order.address }} </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <h5>State: </h5>
+              </div>
+              <div class="col-md-3">
+                <span> {{ order.state }} </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <h5>Zip code : </h5>
+              </div>
+              <div class="col-md-3">
+                <span> {{ order.zip }} </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 offset-md-2">
+                {{ form.render }}
+              </div>
+              <div class="col-md-4 ">
+                <button class="btn btn-block disabled btn-danger">Stripe(coming soon)</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

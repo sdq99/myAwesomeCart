@@ -10,7 +10,9 @@ urlpatterns = [
     path("search/", views.search, name = "Search"),
     path("products/<int:pid>", views.productView, name = "ProductView"),
     path("checkout/", views.checkout, name = "Checkout"),
-    path('paypal', include('paypal.standard.ipn.urls')),
-    path('payment', include('payment.urls'), name= "payment")
+    # path('paypal', include('paypal.standard.ipn.urls')),
+    path('payment', include('payment.urls'), name= "payment"),
+    path('payment-done/', views.payment_done, name='payment_done'),
+    path('payment-cancelled/', views.payment_canceled, name='payment_cancelled'),
 ]
 

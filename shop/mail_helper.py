@@ -16,7 +16,21 @@ def user_query_mail(username,msgHtml, msgTxt, reply_to):
             headers = {'Message-ID': 'foo'},
         )
         msg.attach_alternative(msgHtml, "text/html")
-        # msg.send()
+        msg.send()
+    except BadHeaderError:
+        return {'success': 0,'error': 1, 'msg':'Invalid header found.'}
+    return {'success': 1,'error': 0, 'msg':'Mail sent.'}
+
+def order_success_mail(username,msgHtml, msgTxt, mail_to):
+    try:
+        msg = EmailMultiAlternatives(
+            'Order Successfull',
+            msgTxt,
+            "myAwesomeCart <" + settings.EMAIL_HOST_USER + ">",
+            [mail_to],
+        )
+        msg.attach_alternative(msgHtml, "text/html")
+        msg.send()
     except BadHeaderError:
         return {'success': 0,'error': 1, 'msg':'Invalid header found.'}
     return {'success': 1,'error': 0, 'msg':'Mail sent.'}

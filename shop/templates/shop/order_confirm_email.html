@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta name="x-apple-disable-message-reformatting">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta content="telephone=no" name="format-detection">
+  <title></title>
+  <style>
+    .product-table tr:not(:nth-last-child(-n+2)) td{
+      border-bottom: 1px solid gray;
+    }
+    .product-table thead{
+      background: #e0e0e0;
+    }
+    .total-price td:nth-last-child(-n+2){
+      border-top: 2px solid gray;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="es-wrapper-color">
+
+    <table width="600px" style="text-align: center;" cellspacing="0" cellpadding="0">
+      <tbody>
+        <tr>
+          <td class="esd-email-paddings" valign="top">
+            <h1>Thanks for your order<br></h1>
+            <p style="color: #333333;">Hi {{ name }}, we've received order No. <strong>{{ orderId }}</strong> and are working on it now. <br>We'll email you an update when we've shipped it.</p>
+            <span class="es-button-border">
+              <a href="/shop/tracker/" class="es-button" target="_blank">View order status</a>
+            </span>
+          </td>
+        </tr>
+        <tr>
+          <td class="esd-structure es-p20t es-p30b es-p20r es-p20l" align="left">
+            <table style="background-color: #fef9ef; border-color: #efefef; border-collapse: separate; border-width: 1px 1px 1px 1px; border-style: solid;" width="100%" cellspacing="0" cellpadding="0" bgcolor="#fef9ef">
+              <tbody>
+                <tr>
+                  <td valign="top"  width="50%" style="border-right: 1px solid #efefef">
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th>SUMMARY:</th>
+                        </tr>
+                          <tr>
+                            <td><span style="font-size: 14px; line-height: 150%;">Order #:</span></td>
+                            <td><span style="font-size: 14px; line-height: 150%;">{{ orderId }}</span></td>
+                          </tr>
+                          <tr>
+                            <td><span style="font-size: 14px; line-height: 150%;">Order Date:</span></td>
+                            <td><span style="font-size: 14px; line-height: 150%;">{{ orderDate }}</span></td>
+                          </tr>
+                          <tr>
+                            <td><span style="font-size: 14px; line-height: 150%;">Order Total:</span></td>
+                            <td><span style="font-size: 14px; line-height: 150%;">{{ totalPrice }}</span></td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                  <td valign="top" >
+                    <table >
+                      <tbody>
+                        <tr>
+                          <th>SHIPPING ADDRESS:</th>
+                        </tr>
+                          <tr>
+                            <td>
+                              <span>{{ address }} <br> </span>
+                              <span>{{ state }} - {{ zip }} <br></span>
+                              <span> {{ phone }} </span>
+                            </td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <table class="product-table" cellspacing="0">
+              <thead>
+                <tr>
+                  <th width="20%"> <h5>Item Ordered </h5></th>
+                  <th width="50%"> <h5>Name</h5> </th>
+                  <th width="15%"> <h5>Qty.</h5> </th>
+                  <th width="15%"> <h5>Price</h5> </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for product in itemList.values %}
+                <tr>
+                  <td>
+                    <img width="100px" height="100px" src="{{ product.image }}">
+                  </td>
+                  <td>{{ product.name }} </td>
+                  <td> {{ product.qty }} </td>
+                  <td> {{ product.price }} </td>
+                </tr>
+                {% endfor %}
+                <tr class="total-price">
+                  <td></td>
+                  <td colspan="2"><strong>Order Total:</strong></td>
+                  <td><strong>${{totalPrice}}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+            
+  </div>
+</body>
+
+</html>
