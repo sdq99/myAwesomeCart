@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.views.decorators.csrf import csrf_exempt
-from django.template import Context
-from django.template.loader import render_to_string,get_template
+from django.template.loader import render_to_string
 from django.http import HttpResponse
 from math import ceil
 from datetime import datetime
@@ -85,6 +84,7 @@ def checkout(request):
         order_details['totalPrice'] = sum(item['price'] for item in order_details['itemList'] .values())
         order_details['orderId'] = str(uuid.uuid4()).rsplit('-')[-1]
         order_details['orderDate'] = datetime.now().strftime('%b %-d, %Y')
+        order_details['currentSite'] = request.get_host
         order = Order(
             order_id = order_details['orderId'],
             items = order_details['items'],

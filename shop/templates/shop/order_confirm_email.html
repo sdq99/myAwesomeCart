@@ -32,7 +32,7 @@
             <h1>Thanks for your order<br></h1>
             <p style="color: #333333;">Hi {{ name }}, we've received order No. <strong>{{ orderId }}</strong> and are working on it now. <br>We'll email you an update when we've shipped it.</p>
             <span class="es-button-border">
-              <a href="/shop/tracker/" class="es-button" target="_blank">View order status</a>
+              <a href="http://{{ currentSite }}/shop/tracker/" class="es-button" target="_blank">View order status</a>
             </span>
           </td>
         </tr>
@@ -98,7 +98,7 @@
                 {% for product in itemList.values %}
                 <tr>
                   <td>
-                    <img width="100px" height="100px" src="{{ product.image }}">
+                    <img width="100px" height="100px" src="http://{{ currentSite }}{{ product.image }}">
                   </td>
                   <td>{{ product.name }} </td>
                   <td> {{ product.qty }} </td>
