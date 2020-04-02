@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from django.template.loader import render_to_string
 from django.http import HttpResponse
@@ -9,18 +10,27 @@ from .models import Product, Contact, Order
 from .forms import contactForm
 from .mail_helper import *
 
+
 def index(request):
-    myDate = datetime.now()
+    searchVal = request.GET.get('s')
     allProds = []
     prods = []
     catprods = Product.objects.values('category', 'id')
 
     cats = {item['category'] for item in catprods}
     for cat in cats:
-        prod = Product.objects.filter(category=cat)
-        n = len(prod)
-        nSlides = n//4 + ceil((n/4)-(n//4))
-        prods.append(prod)
+        if searchVal:
+            prod = Product.objects.filter(category=cat).filter(
+                Q(product_name__icontains = searchVal) |
+                Q(desc__icontains = searchVal) |
+                Q(category__icontains = searchVal)
+            )
+        else:
+            prod = Product.objects.filter(category=cat)
+            # prod = [item for item in prod if searchMatch(searchVal, item)]
+
+        if len(prod) != 0:
+            prods.append(prod)
 
     prods.sort(key=len, reverse=True)
     for prod in prods:
@@ -31,8 +41,10 @@ def index(request):
     params = {'allProds': allProds, 'pageName': 'home'}
     return render(request, 'shop/index.html', params)
 
+
 def about(request):
     return render(request, 'shop/about.html',{'pageName': 'about'})
+
 
 def contact(request):
     if request.method == 'POST' :
@@ -44,7 +56,7 @@ def contact(request):
         txty = render_to_string('shop/contact_email.txt', postData)
         htmly = render_to_string('shop/contact_email.html', postData)
         data = Contact(name = postData['name'], email = postData['email'], phone = postData['phone'], message = postData['message'])
-        data.save();
+        data.save()
         response_mail = user_query_mail(
                 postData['name'],
                 htmly,
@@ -56,19 +68,25 @@ def contact(request):
         form = contactForm()
         return render(request, 'shop/contact.html', {'form' : form, 'pageName': 'contact'})
 
+
 def tracker(request):
-    # if request.method == 'POST':
-    #     pass
-    # else:
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        orderId = request.POST.get('order_id')
+        try:
+            order = Order.objects.get(order_id=orderId, email=email)
+        except Order.DoesNotExist:
+            return render(request, 'shop/tracker.html', {'pageName': 'checkout'})
+        return render(request, 'shop/tracker.html', {'pageName': 'checkout'})
+    else:
         return render(request, 'shop/tracker.html',{'pageName': 'tracker'})
 
-def search(request):
-    return render(request, 'shop/search.html', {'pageName': 'search'})
 
 def productView(request, pid):
     #fetching product by id
     product = Product.objects.filter(id=pid)
     return render(request, 'shop/prodView.html', {'product': product[0],'pageName': 'productView'})
+
 
 def checkout(request):
     if request.method == 'POST':
