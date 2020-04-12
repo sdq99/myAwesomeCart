@@ -23,7 +23,7 @@ urlpatterns = [
     path('', views.index, name = 'Project Home'),
     path('git_webhook', views.git_webhook, name = 'git_webhook'),
     path('admin/', admin.site.urls),
-    path('shop/', include('shop.urls')),
+    path('shop/', include('shop.urls'), name = 'shop_app'),
     path('blog/', include('blog.urls')),
     path('payment/', include('payment.urls'), name= 'payment')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

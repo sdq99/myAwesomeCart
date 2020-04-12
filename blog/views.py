@@ -5,3 +5,6 @@ from django.http import HttpResponse
 def index(request):
     data_dict = {'name': 'SADIQUE'}
     return render(request, 'blog/index.html', data_dict)
+
+def login(requst):
+    return render(requst, 'blog/login.html')

@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.db.models import Q
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.template.loader import render_to_string
 from django.http import HttpResponse
@@ -7,7 +11,7 @@ from math import ceil
 from datetime import datetime
 import json,uuid
 from .models import Product, Contact, Order
-from .forms import contactForm
+from .forms import contactForm, userRegistration
 from .mail_helper import *
 
 
@@ -38,8 +42,21 @@ def index(request):
         nSlides = n // 4 + ceil((n / 4) - (n // 4))
         allProds.append([prod, range(1, nSlides), nSlides])
 
+    # print(User.username)
     params = {'allProds': allProds, 'pageName': 'home'}
     return render(request, 'shop/index.html', params)
+
+
+def registration(request):
+    if request.method == 'POST':
+        form = userRegistration(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('/shop')
+    else:
+        form = userRegistration()
+    return render(request, 'registration/register.html', {'form': form})
 
 
 def about(request):
@@ -88,6 +105,7 @@ def productView(request, pid):
     return render(request, 'shop/prodView.html', {'product': product[0],'pageName': 'productView'})
 
 
+@login_required(login_url='../login')
 def checkout(request):
     if request.method == 'POST':
         order_details = {}

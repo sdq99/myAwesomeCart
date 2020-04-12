@@ -54,9 +54,11 @@ def git_webhook(request):
         return HttpResponse('pong')
     elif event == 'push':
         # Deploy some code for example
-        g = git.cmd.Git('~/git_webhook')
+        g = git.cmd.Git('~/myAwesomeCart')
         g.pull()
         return HttpResponse('success')
 
     # In case we receive an event that's not ping or push
     return HttpResponse(status=204)
+
+

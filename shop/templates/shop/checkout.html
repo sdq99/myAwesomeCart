@@ -58,7 +58,16 @@
             <td><a href="/shop" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
             <td colspan="2" class="hidden-xs"></td>
             <td class="hidden-xs text-right"><strong class="total-checkout">Total $0.00</strong></td>
-            <td><a href="javascript:void(0);" class="btn btn-success btn-block" id="checkout-modal-open" data-toggle="modal" data-target="#checkoutModal">Checkout <i class="fa fa-angle-right"></i></a></td>
+            <td>
+                {% if user.is_authenticated %}
+                    <a href="javascript:void(0);" class="btn btn-success btn-block" id="checkout-modal-open" data-toggle="modal" data-target="#checkoutModal">Checkout <i class="fa fa-angle-right"></i>
+                    </a>
+                {% else %}
+                    <a href="/shop/accounts/login" class="btn btn-success btn-block" >Login to Checkout <i class="fa fa-angle-right"></i>
+                    </a>
+                {% endif %}
+
+            </td>
         </tr>
         </tfoot>
     </table>
